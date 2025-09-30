@@ -1,49 +1,31 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>صفحه وضعیت کلاس</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <title>Landing Page</title>
   <style>
-    body {
-      font-family: 'Vazirmatn', sans-serif;
-      margin: 20px;
-      line-height: 1.8;
+    body { margin: 0; font-family: sans-serif; }
+    .hero {
+      height: 100vh;
+      background: url('https://picsum.photos/1200/600') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 5px black;
     }
-    h1, h2 {
-      color: #2c3e50;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      background: #f4f4f4;
-      margin: 5px 0;
-      padding: 10px;
-      border-radius: 8px;
+    .btn {
+      background: #ff5722; padding: 10px 20px;
+      color: white; text-decoration: none; border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>به صفحه کلاس خوش آمدید</h1>
-  <p>در این صفحه می‌توانید وضعیت دانش‌آموزان، نکات درسی و منابع را مشاهده کنید.</p>
-
-  <h2>وضعیت دانش‌آموزان</h2>
-  <ul>
-    <li>دانش‌آموز ۱ – ✅ کامل شده</li>
-    <li>دانش‌آموز ۲ – ⏳ در حال انجام</li>
-    <li>دانش‌آموز ۳ – ❌ نیاز به تلاش بیشتر</li>
-  </ul>
-<nav>
-  <a href="index.html">خانه</a> | 
-  <a href="topics.html">موضوعات</a> | 
-  <a href="resources.html">منابع</a>
-</nav>
-<hr>
-
-  <h2>منابع و لینک‌ها</h2>
-  <p><a href="https://khanacademy.org">خلاصه ریاضی – Khan Academy</a></p>
-  <p><a href="https://www.coursera.org/">دوره‌های آموزشی Coursera</a></p>
+  <div class="hero">
+    <h1>Welcome to My Page</h1>
+    <p>Learn HTML & CSS the easy way</p>
+    <a href="#learn" class="btn">Get Started</a>
+  </div>
 </body>
 </html>
