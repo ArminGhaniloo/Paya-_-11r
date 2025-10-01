@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> داشبورد — کلاس </title>
+
+  <!-- Persian fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1020; --card:#0f1724; --muted:rgba(255,255,255,0.75); --accent:#7c4dff; --accent-2:#ff6b35;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Vazirmatn','Noto Nastaliq Urdu',system-ui,sans-serif;background:linear-gradient(180deg,var(--bg),#071026 120%);color:white}
+
+    .wrap{max-width:1200px;margin:2rem auto;padding:1rem}
+    header{display:flex;gap:1rem;align-items:center;justify-content:space-between}
+
+    .brand{display:flex;align-items:center;gap:.8rem}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;box-shadow:0 8px 30px rgba(124,77,255,0.18)}
+    .site-title{font-weight:700;font-size:1.05rem}
+    .site-sub{font-size:.86rem;color:var(--muted);opacity:.9}
+
+    .controls{display:flex;align-items:center;gap:.75rem}
+    .search{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);padding:.5rem .75rem;border-radius:12px;display:flex;align-items:center;gap:.5rem}
+    .search input{background:transparent;border:0;color:var(--muted);outline:none;width:180px}
+
+    .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,#24314a,#0f1724);display:grid;place-items:center;border:1px solid rgba(255,255,255,0.04)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border-radius:14px;padding:1.25rem;min-height:160px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);transition:transform .22s cubic-bezier(.2,.9,.3,1),box-shadow .22s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(2,6,23,0.75)}
+
+    .card-header{display:flex;align-items:center;gap:.9rem}
+    .card .icon{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:1.25rem}
+
+    .stat-number{font-size:1.8rem;font-weight:700}
+    .stat-desc{color:var(--muted);opacity:.9}
+
+    .card a{display:inline-block;margin-top:1rem;padding:.6rem .9rem;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;text-decoration:none;font-weight:600;box-shadow:0 8px 26px rgba(124,77,255,0.12)}
+
+    .hero-pan{display:flex;gap:1rem;margin-top:1.4rem;align-items:center}
+    .welcome{flex:1}
+    .banner{flex:0 0 360px;border-radius:12px;overflow:hidden;height:120px;background:url('https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1500&q=80') center/cover}
+
+    footer{margin-top:2rem;color:var(--muted);font-size:.9rem;text-align:center;opacity:.9}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .controls .search input{width:110px}
+      .banner{display:none}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">ک</div>
+        <div>
+          <div class="site-title">کلاس </div>
+          <div class="site-sub">محیطی برای رشد و همراهی دانش‌آموزان</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.6"/></svg>
+          <input placeholder="جستجو در داشبورد" aria-label="جستجو">
+        </div>
+
+        <div title="پروفایل" class="avatar" aria-hidden="true">ع</div>
+      </div>
+    </header>
+
+    <div class="hero-pan">
+      <div class="welcome">
+        <h2 style="margin:0">سلام! آماده‌ی یک نگاه کلی به کلاس‌ها هستید؟</h2>
+        <p style="margin:.35rem 0;color:var(--muted)">در داشبورد می‌توانید آمار دانش‌آموزان را ببینید، مباحث مشاوره‌ای را مرور کنید و در صورت نیاز با پشتیبان در ارتباط باشید.</p>
+      </div>
+      <div class="banner" aria-hidden="true"></div>
+    </div>
+
+    <div class="grid" role="list">
+
+      <!-- Card 1: آمار دانش آموزان -->
+      <article class="card" role="listitem" aria-labelledby="stat-title">
+        <div>
+          <div class="card-header">
+            <div class="icon" style="background:linear-gradient(135deg,#3b82f6,#7c4dff)">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 13h2v6H3zM8 9h2v10H8zM13 5h2v14h-2zM18 3h2v16h-2z" fill="currentColor"/></svg>
+            </div>
+            <div>
+              <div id="stat-title" class="stat-number">۲۰</div>
+              <div class="stat-desc">دانش‌آموزان ثبت‌شده</div>
+            </div>
+          </div>
+        </div>
+        <a href="stats.html">مشاهده آمار</a>
+      </article>
+
+      <!-- Card 2: مباحث مشاوره ای -->
+      <article class="card" role="listitem" aria-labelledby="coun-title">
+        <div>
+          <div class="card-header">
+            <div class="icon" style="background:linear-gradient(135deg,#ff7a59,#ff6b35)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3C7.03 3 3 6.58 3 11c0 1.98.78 3.79 2.05 5.27L4 21l4.86-1.37C10.26 20 11.1 20 12 20c4.97 0 9-3.58 9-8s-4.03-9-9-9z" fill="currentColor"/></svg>
+            </div>
+            <div>
+              <div id="coun-title" class="stat-number">مباحث راهنمایی</div>
+              <div class="stat-desc">مقالات، ویدیوها و جلسات مشاوره‌ای</div>
+            </div>
+          </div>
+        </div>
+        <a href="counseling.html">مشاهده مباحث</a>
+      </article>
+
+      <!-- Card 3: ارتباط با پشتیبان -->
+      <article class="card" role="listitem" aria-labelledby="sup-title">
+        <div>
+          <div class="card-header">
+            <div class="icon" style="background:linear-gradient(135deg,#10b981,#06b6d4)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a1 1 0 0 1-1 1h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path><path d="M8 5a4 4 0 1 1 8 0v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+            </div>
+            <div>
+              <div id="sup-title" class="stat-number">پشتیبانی</div>
+              <div class="stat-desc">ارتباط سریع با پشتیبان</div>
+            </div>
+          </div>
+        </div>
+        <a href="support.html">ارتباط با پشتیبان</a>
+      </article>
+
+    </div>
+
+    <footer>نسخه آزمایشی — طراحی شده برای تجربهٔ ساده و دلپذیر</footer>
+  </div>
+
+  <script>
+    // small niceties: animate stat numbers lightly (client-side only)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const el = document.querySelector('#stat-title');
+      const target = 20;
+      let current = 0;
+      const step = Math.ceil(target/40);
+      const t = setInterval(()=>{
+        current += step;
+        if(current >= target){ current = target; clearInterval(t); }
+        el.textContent = current.toLocaleString('fa-IR');
+      },18);
+    });
+  </script>
+</body>
+</html>
