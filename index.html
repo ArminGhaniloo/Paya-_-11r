@@ -1,147 +1,173 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>آمار دانش‌آموزان</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>صفحه فرود — کلاس</title>
 
-  <!-- فونت فارسی -->
+  <!-- Persian fonts: Vazirmatn + Noto Nastaliq (fallbacks included) -->
+  <!-- If you prefer Vazir, you can also use the Vazir CDN from GitHub (uncomment import in the CSS) -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #0b1529;
-      --card: #16223a;
-      --accent1: #7c4dff;
-      --accent2: #ff6b35;
-      --muted: rgba(255, 255, 255, 0.9);
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Vazirmatn','Noto Nastaliq Urdu',sans-serif; background: var(--bg); color: var(--muted); }
-    header { text-align: center; padding: 2rem 1rem; }
-    h1 { font-size: 1.8rem; margin: 0; }
+    /* Uncomment this line to load Vazir from jsDelivr if you prefer Vazir instead of Vazirmatn
+       @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+    */
 
-    .dates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem; padding: 1rem; max-width: 1000px; margin: auto;
-    }
-    .date-btn {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all .3s ease;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .date-btn:hover {
-      background: linear-gradient(135deg,var(--accent1),var(--accent2));
-      transform: translateY(-3px);
+    :root{
+      --bg-overlay: rgba(8,10,20,0.45);
+      --accent-1: #ff6b35;
+      --accent-2: #ff3d00;
+      --glass: rgba(255,255,255,0.06);
+      --fg: #fff;
     }
 
-    .viewer {
-      margin: 2rem auto; text-align: center; max-width: 900px;
-      background: var(--card); border-radius: 16px;
-      padding: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    }
-    .viewer img {
-      max-width: 700px;   /* حداکثر عرض در دسکتاپ */
-      max-height: 500px;  /* حداکثر ارتفاع */
-      width: 100%;        /* در موبایل تمام عرض صفحه */
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      margin-bottom: 1rem;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+    *{box-sizing: border-box}
+    html,body{height:100%;margin:0;font-family: 'Vazirmatn', 'Noto Nastaliq Urdu', Tahoma, system-ui, sans-serif;background:#070710;color:var(--fg)}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3rem;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
     }
 
-    @media (max-width: 768px) {
-      .viewer img {
-        max-width: 100%; /* در موبایل انعطاف‌پذیر */
-        max-height: 350px;
-      }
+    /* background layer + subtle gradient overlay */
+    .hero::before{
+      content:'';
+      position:absolute;inset:0;
+      background-position:center;background-size:cover;background-repeat:no-repeat;
+      filter:blur(1px) saturate(1.05) contrast(1.02);
+      transition:opacity .8s ease, transform .8s ease;
+      transform:scale(1.02);
+      opacity:0;
+      z-index:0;
+      will-change:opacity,transform;
+    }
+    .hero.bg-loaded::before{opacity:1;transform:scale(1)}
+
+    .overlay{position:absolute;inset:0;background:linear-gradient(180deg,var(--bg-overlay),rgba(0,0,0,0.18));z-index:1}
+
+    .content{
+      position:relative;z-index:2;max-width:1000px;width:100%;padding:2rem;
+      display:flex;flex-direction:column;gap:1.25rem;align-items:center
     }
 
-    .not-exist {
-      font-size: 1.2rem; color: #ff6b6b; font-weight: 600;
+    h1{font-size:clamp(1.8rem,4.5vw,3.6rem);margin:0;line-height:1.05;letter-spacing:.5px}
+    p.lead{font-size:1.25rem;margin:0;opacity:.95}
+
+    /* Modern button */
+    .btn{
+      --pad-v:12px;--pad-h:28px;
+      position:relative;display:inline-flex;align-items:center;gap:.7rem;justify-content:center;
+      padding:var(--pad-v) var(--pad-h);border-radius:14px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+      color:white;text-decoration:none;font-weight:600;box-shadow:0 8px 30px rgba(255,70,20,0.18), inset 0 -2px 8px rgba(255,255,255,0.06);
+      transform:translateY(0);transition:transform .18s ease, box-shadow .18s ease;overflow:hidden;
     }
+    .btn:active{transform:translateY(1px)}
+    .btn:hover{box-shadow:0 14px 40px rgba(255,70,20,0.22);transform:translateY(-3px)}
+
+    /* ripple effect element */
+    .btn .ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,0.18);pointer-events:none}
+
+    /* small subtext + language-friendly layout */
+    .sub{font-size:.95rem;opacity:.9}
+
+    /* responsive layout */
+    @media (min-width:900px){
+      .content{flex-direction:row;align-items:center;justify-content:space-between}
+      .left{flex:1;text-align:right;padding-right:1rem}
+      .right{flex:0 0 320px}
+    }
+
+    /* glass card for CTA */
+    .cta-card{background:var(--glass);padding:1.25rem;border-radius:12px;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+
+    /* small decorative flourish */
+    .logo{font-weight:700;font-size:1.1rem}
+
+    /* accessibility focus */
+    .btn:focus{outline:3px solid rgba(255,107,53,0.22);outline-offset:4px}
   </style>
 </head>
 <body>
-  <header>
-    <h1>📊 آمار دانش‌آموزان</h1>
-    <p>برای دیدن گزارش هر جلسه روی تاریخ مورد نظر کلیک کنید</p>
-  </header>
+  <main class="hero" id="hero" aria-label="صفحه اصلی">
+    <div class="overlay" aria-hidden="true"></div>
 
-  <div class="dates-grid" id="dates"></div>
+    <div class="content">
 
-  <div class="viewer" id="viewer">
-    <p>لطفاً یکی از تاریخ‌ها را انتخاب کنید.</p>
-  </div>
+      <div class="left">
+        <div class="logo">کلاس آنلاین</div>
+        <h1>به وب‌سایت کلاس خوش آمدید</h1>
+        <p class="lead">آموزش ساده، جمعی و هدفمند — با هم یاد می‌گیریم</p>
+      </div>
+
+      <div class="right">
+        <div class="cta-card">
+          <p class="sub">برای ورود یا ثبت‌نام روی دکمه زیر کلیک کنید</p>
+          <a class="btn" href="dashboard.html" id="cta" role="button" aria-label="ورود به داشبورد">
+            <!-- icon (inline SVG) -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 17l5-5-5-5v10z" fill="currentColor"></path>
+            </svg>
+            <span>ورود</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
 
   <script>
-    // تاریخ‌ها از ۴ مهر تا ۲۲ اسفند با فاصله ۱۴ روزه
-    const dates = [
-      "۴ مهر", "۱۸ مهر", "۲ آبان", "۱۶ آبان", "۳۰ آبان",
-      "۱۴ آذر", "۲۸ آذر", "۱۲ دی", "۲۶ دی", "۱۰ بهمن",
-      "۲۴ بهمن", "۸ اسفند", "۲۲ اسفند"
-    ];
+    /*
+      Behaviour implemented without external libraries:
+      - lazy-loads a high-quality background image and applies fade-in
+      - adds click ripple effect to the CTA button
+      - accessible keyboard focus support
 
-    // نگاشت تاریخ‌ها به عکس‌ها
-    // 🔖 اینجا تصاویر اکسل را اضافه کنید
-    // کافی است فایل عکس را در پوشه "images/" قرار دهید و نام آن را در اینجا وارد کنید.
-    // مثال: "۴ مهر": "images/4mehr.png"
-    const images = {
-      "۴ مهر": "images/4mehr.png",
-      "۱۸ مهر": "images/18mehr.png",
-      "۲ آبان": "images/2aban.png",
-      "۱۶ آبان": "images/16aban.png",
-      "۳۰ آبان": "images/30aban.png",
-      "۱۴ آذر": "images/14azar.png",
-      "۲۸ آذر": "images/28azar.png",
-      "۱۲ دی": "images/12dey.png",
-      "۲۶ دی": "images/26dey.png",
-      "۱۰ بهمن": "images/10bahman.png",
-      "۲۴ بهمن": "images/24bahman.png",
-      "۸ اسفند": "images/8esfand.png",
-      "۲۲ اسفند": "images/22esfand.png"
-    };
+      NOTE: I used an Unsplash-style image URL as an example for a high-quality photo.
+      If you have a particular image or image provider you'd like, replace `bgUrl` below.
+    */
 
-    const grid = document.getElementById("dates");
-    const viewer = document.getElementById("viewer");
+    (function(){
+      const hero = document.getElementById('hero');
+      const bgUrl = 'https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80';
 
-    dates.forEach(d => {
-      const btn = document.createElement("div");
-      btn.className = "date-btn";
-      btn.innerText = d;
-      btn.onclick = () => showImage(d);
-      grid.appendChild(btn);
-    });
+      // preload
+      const img = new Image();
+      img.src = bgUrl;
+      img.onload = () => {
+        hero.style.setProperty('--bg-image', `url(${bgUrl})`);
+        hero.classList.add('bg-loaded');
+        // set pseudo-element background via inline stylesheet
+        const sheet = document.createElement('style');
+        sheet.innerHTML = `#hero::before{background-image: url(${bgUrl});}`;
+        document.head.appendChild(sheet);
+      };
 
-    function showImage(date) {
-      viewer.innerHTML = "";
-      if (images[date]) {
-        const img = new Image();
-        img.src = images[date];
-        img.onload = () => {
-          viewer.appendChild(img);
-        };
-        img.onerror = () => {
-          const p = document.createElement("p");
-          p.className = "not-exist";
-          p.innerText = "عکس برای این تاریخ موجود نیست. لطفاً فایل را در پوشه images اضافه کنید.";
-          viewer.appendChild(p);
-        };
-      } else {
-        const p = document.createElement("p");
-        p.className = "not-exist";
-        p.innerText = "عکس برای این تاریخ موجود نیست. لطفاً فایل را در پوشه images اضافه کنید.";
-        viewer.appendChild(p);
-      }
-    }
+      // Ripple effect on CTA
+      const cta = document.getElementById('cta');
+      cta.addEventListener('click', function(e){
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        this.appendChild(ripple);
+        requestAnimationFrame(()=>{ ripple.style.transform = 'scale(1)'; ripple.style.opacity = '0'; ripple.style.transition = 'transform 600ms cubic-bezier(.22,.9,.3,1), opacity 600ms linear'; });
+        setTimeout(()=>ripple.remove(),700);
+      });
+
+      // keyboard 'Enter' trigger for accessibility (keeps ripple)
+      cta.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') this.click(); });
+    })();
   </script>
 </body>
 </html>
