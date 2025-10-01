@@ -1,31 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Landing Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>آمار دانش‌آموزان</title>
+
+  <!-- فونت فارسی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+
   <style>
-    body { margin: 0; font-family: sans-serif; }
-    .hero {
-      height: 100vh;
-      background: url('https://picsum.photos/1200/600') no-repeat center center/cover;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-shadow: 2px 2px 5px black;
+    :root {
+      --bg: #0b1529;
+      --card: #16223a;
+      --accent1: #7c4dff;
+      --accent2: #ff6b35;
+      --muted: rgba(255, 255, 255, 0.9);
     }
-    .btn {
-      background: #ff5722; padding: 10px 20px;
-      color: white; text-decoration: none; border-radius: 5px;
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Vazirmatn','Noto Nastaliq Urdu',sans-serif; background: var(--bg); color: var(--muted); }
+    header { text-align: center; padding: 2rem 1rem; }
+    h1 { font-size: 1.8rem; margin: 0; }
+
+    .dates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem; padding: 1rem; max-width: 1000px; margin: auto;
+    }
+    .date-btn {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .date-btn:hover {
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      transform: translateY(-3px);
+    }
+
+    .viewer {
+      margin: 2rem auto; text-align: center; max-width: 900px;
+      background: var(--card); border-radius: 16px;
+      padding: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .viewer img {
+      max-width: 700px;   /* حداکثر عرض در دسکتاپ */
+      max-height: 500px;  /* حداکثر ارتفاع */
+      width: 100%;        /* در موبایل تمام عرض صفحه */
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+      .viewer img {
+        max-width: 100%; /* در موبایل انعطاف‌پذیر */
+        max-height: 350px;
+      }
+    }
+
+    .not-exist {
+      font-size: 1.2rem; color: #ff6b6b; font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Welcome to My Page</h1>
-    <p>Learn HTML & CSS the easy way</p>
-    <a href="#learn" class="btn">Get Started</a>
+  <header>
+    <h1>📊 آمار دانش‌آموزان</h1>
+    <p>برای دیدن گزارش هر جلسه روی تاریخ مورد نظر کلیک کنید</p>
+  </header>
+
+  <div class="dates-grid" id="dates"></div>
+
+  <div class="viewer" id="viewer">
+    <p>لطفاً یکی از تاریخ‌ها را انتخاب کنید.</p>
   </div>
+
+  <script>
+    // تاریخ‌ها از ۴ مهر تا ۲۲ اسفند با فاصله ۱۴ روزه
+    const dates = [
+      "۴ مهر", "۱۸ مهر", "۲ آبان", "۱۶ آبان", "۳۰ آبان",
+      "۱۴ آذر", "۲۸ آذر", "۱۲ دی", "۲۶ دی", "۱۰ بهمن",
+      "۲۴ بهمن", "۸ اسفند", "۲۲ اسفند"
+    ];
+
+    // نگاشت تاریخ‌ها به عکس‌ها
+    // 🔖 اینجا تصاویر اکسل را اضافه کنید
+    // کافی است فایل عکس را در پوشه "images/" قرار دهید و نام آن را در اینجا وارد کنید.
+    // مثال: "۴ مهر": "images/4mehr.png"
+    const images = {
+      "۴ مهر": "images/4mehr.png",
+      "۱۸ مهر": "images/18mehr.png",
+      "۲ آبان": "images/2aban.png",
+      "۱۶ آبان": "images/16aban.png",
+      "۳۰ آبان": "images/30aban.png",
+      "۱۴ آذر": "images/14azar.png",
+      "۲۸ آذر": "images/28azar.png",
+      "۱۲ دی": "images/12dey.png",
+      "۲۶ دی": "images/26dey.png",
+      "۱۰ بهمن": "images/10bahman.png",
+      "۲۴ بهمن": "images/24bahman.png",
+      "۸ اسفند": "images/8esfand.png",
+      "۲۲ اسفند": "images/22esfand.png"
+    };
+
+    const grid = document.getElementById("dates");
+    const viewer = document.getElementById("viewer");
+
+    dates.forEach(d => {
+      const btn = document.createElement("div");
+      btn.className = "date-btn";
+      btn.innerText = d;
+      btn.onclick = () => showImage(d);
+      grid.appendChild(btn);
+    });
+
+    function showImage(date) {
+      viewer.innerHTML = "";
+      if (images[date]) {
+        const img = new Image();
+        img.src = images[date];
+        img.onload = () => {
+          viewer.appendChild(img);
+        };
+        img.onerror = () => {
+          const p = document.createElement("p");
+          p.className = "not-exist";
+          p.innerText = "عکس برای این تاریخ موجود نیست. لطفاً فایل را در پوشه images اضافه کنید.";
+          viewer.appendChild(p);
+        };
+      } else {
+        const p = document.createElement("p");
+        p.className = "not-exist";
+        p.innerText = "عکس برای این تاریخ موجود نیست. لطفاً فایل را در پوشه images اضافه کنید.";
+        viewer.appendChild(p);
+      }
+    }
+  </script>
 </body>
 </html>
