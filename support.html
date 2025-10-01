@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ارتباط با پشتیبان </title>
+
+  <!-- Persian fonts: Vazirmatn + Noto Nastaliq -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--bg:#041028;--card:#0f1724;--accent1:#7c4dff;--accent2:#ff6b35;--muted:rgba(255,255,255,0.86)}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Vazirmatn','Noto Nastaliq Urdu',system-ui,sans-serif;background:linear-gradient(180deg,#02101a,var(--bg));color:var(--muted);direction:rtl}
+
+    .container{max-width:1000px;margin:2.2rem auto;padding:1.1rem}
+    header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.8rem}
+    .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:white;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:0 12px 40px rgba(124,77,255,0.12)}
+    h1{margin:0;font-size:1.4rem}
+    p.lead{margin:.4rem 0 0;color:rgba(255,255,255,0.78)}
+
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.6rem}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));border-radius:14px;padding:1.2rem;min-height:140px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03);}
+    .card .head{display:flex;gap:.9rem;align-items:center}
+    .icon{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(0,0,0,0.08));font-size:1.35rem}
+
+    .label{font-weight:700;font-size:1.05rem}
+    .value{margin-top:.5rem;font-size:1.15rem;font-weight:600;color:white}
+    .meta{margin-top:.45rem;color:rgba(255,255,255,0.72);font-size:.95rem}
+
+    .note{font-size:.92rem;color:rgba(255,255,255,0.72);margin-top:1rem}
+
+    .full{grid-column:1/-1}
+
+    footer{margin-top:1.6rem;color:rgba(255,255,255,0.6);text-align:center;font-size:.95rem}
+
+    @media (max-width:800px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">ارتباط</div>
+        <div>
+          <h1>ارتباط با پشتیبان</h1>
+          <p class="lead">در هر لحظه که نیاز داشتید می‌توانید از راه‌های زیر با ما در ارتباط باشید — پاسخ سریع و حرفه‌ای.</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid" role="list">
+      <!-- Phone Card (no buttons) -->
+      <article class="card" role="listitem" aria-labelledby="phone-title">
+        <div class="head">
+          <div class="icon" style="background:linear-gradient(135deg,#ff6b35,#ff7a59);">
+            <!-- phone svg -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.35 2.08.68 3.06a2 2 0 0 1-.45 2.11L8.91 10.91a15.05 15.05 0 0 0 6 6l1-1a2 2 0 0 1 2.11-.45c.98.33 2.01.56 3.06.68A2 2 0 0 1 22 16.92z" fill="currentColor"></path></svg>
+          </div>
+          <div>
+            <div id="phone-title" class="label">تلفن پشتیبان -آقای غنی لو</div>
+            <div class="value">۰۹۳۰۰۴۸۸۷۰۸</div>
+            <div class="meta">برای تماس تلفنی یا ارسال پیام از همین شماره استفاده کنید.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Office Hours -->
+      <article class="card" role="listitem" aria-labelledby="office-title">
+        <div class="head">
+          <div class="icon" style="background:linear-gradient(135deg,#06b6d4,#10b981);">
+            <!-- calendar/clock svg -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v2M16 2v2M3 8h18M21 21H3V8h18v13z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11v5l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div id="office-title" class="label">روز و ساعت حضور</div>
+            <div class="value">پنج‌شنبه‌ها — ۱۸:۳۰ تا ۲۰:۳۰</div>
+            <div class="meta">وقت ملاقات حضوری در این بازه انجام می‌شود.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bale App with embedded placeholder logo (replace with official logo if provided) -->
+      <article class="card" role="listitem" aria-labelledby="bale-title">
+        <div class="head">
+          <div class="icon" style="background:linear-gradient(135deg,#7c4dff,#3b82f6);">
+            <!-- Placeholder stylized "بله" badge as a stand-in for Bale logo -->
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7c4dff"/>
+                  <stop offset="1" stop-color="#3b82f6"/>
+                </linearGradient>
+              </defs>
+              <rect rx="18" width="100" height="100" fill="url(#g)"/>
+              <text x="50" y="58" font-family="Vazirmatn, Tahoma, sans-serif" font-size="46" fill="white" text-anchor="middle">بله</text>
+            </svg>
+          </div>
+          <div>
+            <div id="bale-title" class="label">آی‌دی در پیام‌رسان بله</div>
+            <div class="value">@armin_ghaniloo</div>
+            <div class="meta">برای گفت‌وگو، ارسال فایل یا هماهنگی جلسات از این آی‌دی استفاده کنید.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Test Center (full width) -->
+      <article class="card full" role="listitem" aria-labelledby="place-title">
+        <div class="head">
+          <div class="icon" style="background:linear-gradient(135deg,#ffb86b,#ff6b35);font-size:14px">آزمون</div>
+          <div style="flex:1">
+            <div id="place-title" class="label">حوزهٔ آزمون</div>
+            <div class="value">مدرسهٔ سلیمی جهرمی — واقع در گودرزی شمالی</div>
+            <div class="meta">لطفاً برای حضور در آزمون، نیم‌ساعت قبل در محل حاضر باشید و کارت ورود همراه داشته باشید.</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    
+    <footer> پشتیبانی همیشه فراسوی انتظار</footer>
+  </div>
+
+  <script>
+    // no copy buttons, no quick-call, no map. This page intentionally shows contact details only.
+  </script>
+</body>
+</html>
