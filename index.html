@@ -5,61 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>صفحه ورود — کلاس</title>
 
-  <!-- Persian fonts: Vazirmatn + Noto Nastaliq (fallbacks included) -->
-  <!-- If you prefer Vazir, you can also use the Vazir CDN from GitHub (uncomment import in the CSS) -->
+  <!-- فونت‌های فارسی -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
 
   <style>
-    /* Uncomment this line to load Vazir from jsDelivr if you prefer Vazir instead of Vazirmatn
-       @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
-    */
-
     :root{
-      --bg-overlay: rgba(8,10,20,0.45);
       --accent-1: #ff6b35;
       --accent-2: #ff3d00;
-      --glass: rgba(255,255,255,0.06);
       --fg: #fff;
+      --overlay: rgba(3,6,16,0.45);
     }
-
     *{box-sizing: border-box}
-    html,body{height:100%;margin:0;font-family: 'Vazirmatn', 'Noto Nastaliq Urdu', Tahoma, system-ui, sans-serif;background:#070710;color:var(--fg)}
+    html,body{height:100%;margin:0;font-family:'Vazirmatn','Noto Nastaliq Urdu',Tahoma,system-ui,sans-serif;background:#070710;color:var(--fg);direction:rtl}
 
-    /* HERO */
+    /* کانتینر اصلی */
     .hero{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:3rem;
+      padding:2.5rem;
       position:relative;
       overflow:hidden;
       text-align:center;
     }
 
-    /* background layer + subtle gradient overlay */
-    .hero::before{
-      content:'';
-      position:absolute;inset:0;
-      background-position:center;background-size:cover;background-repeat:no-repeat;
-      filter:blur(1px) saturate(1.05) contrast(1.02);
-      transition:opacity .8s ease, transform .8s ease;
-      transform:scale(1.02);
-      opacity:0;
+    /* ---------- BACKGROUND SLIDER ---------- */
+    /* ساختار: یک لایهٔ مطلق با اسلایدها (هر اسلاید یک background-image) */
+    .bg-slider{
+      position:absolute;
+      inset:0;
       z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .bg-slide{
+      position:absolute;
+      inset:0;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      opacity:0;
+      transform: scale(1.03);
+      transition: opacity 1200ms ease, transform 1200ms ease;
       will-change:opacity,transform;
     }
-    .hero.bg-loaded::before{opacity:1;transform:scale(1)}
+    /* اسلاید فعال */
+    .bg-slide.active{ opacity:1; transform: scale(1); }
 
-    .overlay{position:absolute;inset:0;background:linear-gradient(180deg,var(--bg-overlay),rgba(0,0,0,0.18));z-index:1}
+    /* overlay for better contrast */
+    .overlay{position:absolute;inset:0;background:linear-gradient(180deg,var(--overlay),rgba(0,0,0,0.18));z-index:1}
 
+    /* محتوا روی لایهٔ foreground */
     .content{
       position:relative;z-index:2;max-width:1000px;width:100%;padding:2rem;
       display:flex;flex-direction:column;gap:1.25rem;align-items:center
     }
 
     h1{font-size:clamp(1.8rem,4.5vw,3.6rem);margin:0;line-height:1.05;letter-spacing:.5px}
-    p.lead{font-size:1.25rem;margin:0;opacity:.95}
+    p.lead{font-size:1.1rem;margin:0;opacity:.95}
 
     /* Modern button */
     .btn{
@@ -68,15 +72,13 @@
       padding:var(--pad-v) var(--pad-h);border-radius:14px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
       color:white;text-decoration:none;font-weight:600;box-shadow:0 8px 30px rgba(255,70,20,0.18), inset 0 -2px 8px rgba(255,255,255,0.06);
       transform:translateY(0);transition:transform .18s ease, box-shadow .18s ease;overflow:hidden;
+      z-index:3;
     }
     .btn:active{transform:translateY(1px)}
     .btn:hover{box-shadow:0 14px 40px rgba(255,70,20,0.22);transform:translateY(-3px)}
 
     /* ripple effect element */
     .btn .ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,0.18);pointer-events:none}
-
-    /* small subtext + language-friendly layout */
-    .sub{font-size:.95rem;opacity:.9}
 
     /* responsive layout */
     @media (min-width:900px){
@@ -86,23 +88,33 @@
     }
 
     /* glass card for CTA */
-    .cta-card{background:var(--glass);padding:1.25rem;border-radius:12px;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .cta-card{background:rgba(255,255,255,0.04);padding:1.25rem;border-radius:12px;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);box-shadow:0 6px 30px rgba(2,6,23,0.6);z-index:3}
 
     /* small decorative flourish */
-    .logo{font-weight:700;font-size:1.1rem}
+    .logo{font-weight:700;font-size:1.1rem;z-index:3}
 
     /* accessibility focus */
     .btn:focus{outline:3px solid rgba(255,107,53,0.22);outline-offset:4px}
+
+    /* reduce motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .bg-slide, .bg-slide.active { transition: none; transform: none; }
+    }
   </style>
 </head>
 <body>
   <main class="hero" id="hero" aria-label="صفحه اصلی">
+    <!-- BACKGROUND SLIDER -->
+    <div class="bg-slider" id="bgSlider" aria-hidden="true">
+      <!-- اسلایدها توسط جاوااسکریپت اضافه می‌شوند -->
+      <!-- ساختار هر اسلاید: <div class="bg-slide" style="background-image:url('...')"></div> -->
+    </div>
+
     <div class="overlay" aria-hidden="true"></div>
 
     <div class="content">
-
       <div class="left">
-        <div class="logo">نام پشتیبان: آرمین غنی لو </div>
+        <div class="logo">نام پشتیبان: آرمین غنی‌لو</div>
         <h1>به وب‌سایت کلاس خوش آمدید</h1>
         <p class="lead">آموزش ساده، جمعی و هدفمند — با هم یاد می‌گیریم</p>
       </div>
@@ -111,7 +123,6 @@
         <div class="cta-card">
           <p class="sub">برای ورود روی دکمه زیر کلیک کنید</p>
           <a class="btn" href="dashboard.html" id="cta" role="button" aria-label="ورود به داشبورد">
-            <!-- icon (inline SVG) -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M10 17l5-5-5-5v10z" fill="currentColor"></path>
             </svg>
@@ -119,39 +130,78 @@
           </a>
         </div>
       </div>
-
     </div>
   </main>
 
   <script>
-    /*
-      Behaviour implemented without external libraries:
-      - lazy-loads a high-quality background image and applies fade-in
-      - adds click ripple effect to the CTA button
-      - accessible keyboard focus support
-
-      NOTE: I used an Unsplash-style image URL as an example for a high-quality photo.
-      If you have a particular image or image provider you'd like, replace `bgUrl` below.
-    */
-
     (function(){
-      const hero = document.getElementById('hero');
-      const bgUrl = 'https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80';
+      // ====== تنظیم تصاویر پس‌زمینه ======
+      // این آرایه را با 6 تصویر با کیفیت دلخواه خود (مسیر محلی یا URL) جایگزین کنید.
+      // تصاویر نمونه از Unsplash انتخاب‌شده‌اند؛ می‌توانید آن‌ها را عوض کنید.
+      const BG_IMAGES = [
+        // نمونه‌ها — جایگزین کنید:
+        'https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1496307042754-7f6ef19d1c4a?auto=format&fit=crop&w=1600&q=80'
+      ];
 
-      // preload
-      const img = new Image();
-      img.src = bgUrl;
-      img.onload = () => {
-        hero.style.setProperty('--bg-image', `url(${bgUrl})`);
-        hero.classList.add('bg-loaded');
-        // set pseudo-element background via inline stylesheet
-        const sheet = document.createElement('style');
-        sheet.innerHTML = `#hero::before{background-image: url(${bgUrl});}`;
-        document.head.appendChild(sheet);
-      };
+      const slider = document.getElementById('bgSlider');
+      const slides = [];
+      let current = 0;
+      const DURATION = 7000; // مدت نمایش هر اسلاید (میلی‌ثانیه)
 
-      // Ripple effect on CTA
+      // پیش‌بارگذاری تصاویر (lazy-preload) و ایجاد عناصر اسلاید
+      function createSlides() {
+        BG_IMAGES.forEach((src, i) => {
+          // preload
+          const img = new Image();
+          img.src = src;
+
+          // create element
+          const div = document.createElement('div');
+          div.className = 'bg-slide';
+          div.style.backgroundImage = `url('${src}')`;
+          // هر اسلاید را در DOM اضافه می‌کنیم (به ترتیب) — opacity کنترل می‌شود
+          slider.appendChild(div);
+          slides.push(div);
+        });
+
+        // اسلاید اول را فعال کن
+        if(slides[0]) slides[0].classList.add('active');
+      }
+
+      // جابه‌جایی بین اسلایدها با افکت فِید
+      let intervalId = null;
+      function startLoop() {
+        if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          // اگر کاربر ترجیح داده حرکت کم باشد — اسلاید ثابت بماند
+          return;
+        }
+        intervalId = setInterval(()=> {
+          const prev = slides[current];
+          current = (current + 1) % slides.length;
+          const next = slides[current];
+          if(prev) prev.classList.remove('active');
+          if(next) next.classList.add('active');
+        }, DURATION);
+      }
+
+      // متوقف کردن لوپ هنگام hover روی CTA (اختیاری برای دسترسی)
       const cta = document.getElementById('cta');
+      if(cta){
+        cta.addEventListener('mouseover', ()=> { if(intervalId) clearInterval(intervalId); });
+        cta.addEventListener('mouseleave', ()=> { if(!intervalId) startLoop(); });
+      }
+
+      // initialize
+      createSlides();
+      // شروع لوپ با تاخیر کوچک تا بارگذاری اولیه کامل شود
+      setTimeout(startLoop, 600);
+
+      // ===== ripple effect on CTA =====
       cta.addEventListener('click', function(e){
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height) * 2;
@@ -164,9 +214,10 @@
         requestAnimationFrame(()=>{ ripple.style.transform = 'scale(1)'; ripple.style.opacity = '0'; ripple.style.transition = 'transform 600ms cubic-bezier(.22,.9,.3,1), opacity 600ms linear'; });
         setTimeout(()=>ripple.remove(),700);
       });
-
-      // keyboard 'Enter' trigger for accessibility (keeps ripple)
       cta.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') this.click(); });
+
+      // ===== رفتار در موبایل: برای بهبود performance، تصاویر کمتر پیش‌بارگذاری شوند =====
+      // (فعلاً همه تصویرها را preload کردیم؛ اگر می‌خواهید کمتر پیش‌بارگذاری شود، کامنت کنید بخش preload در createSlides)
     })();
   </script>
 </body>
