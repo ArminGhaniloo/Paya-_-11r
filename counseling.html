@@ -29,24 +29,32 @@
 <body>
   <div class="wrap">
     <h1>مشاوره — فهرست موضوعات</h1>
+    <p class="desc">در این صفحه عنوانِ موضوعات قرار می‌گیرد. خودِ محتوا در فایل‌های جداگانه نگهداری می‌شود تا بتوانید به‌راحتی موضوعات جدید اضافه یا ویرایش کنید.</p>
 
     <div class="list" id="topics">
       <!-- آیتم‌ها داینامیک هستند -->
     </div>
 
     <div class="content-area" id="contentArea">
-      <div class="hint">برای مشاهدهٔ محتوا روی یکی از عنوان‌ها کلیک کنید..</div>
+      <div class="hint">برای مشاهدهٔ محتوا روی یکی از عنوان‌ها کلیک کنید. اگر فایل محتوا در کنار این صفحه وجود نداشته باشد پیام مناسب نشان داده می‌شود.</div>
     </div>
-
 
   </div>
 
   <script>
+    /* ----------------- توجه مدیر سایت (برای شما؛ متن برای کاربر نمایش داده نمی‌شود) -----------------
+       برای اضافه کردن موضوع جدید:
+       1) یک فایل HTML بسازید (مثلاً 'topic-new.html') که محتوای آن موضوع را دارد.
+       2) در آرایه TOPICS پایین، یک شیء جدید اضافه کنید:
+          { title: 'عنوان موضوع', file: 'topic-new.html' }
+       3) فایل جدید را در کنار این صفحه آپلود کنید.
+       4) اگر می‌خواهید این صفحه را از داشبورد لینک کنید، کافی است آدرس آن را در داشبورد قرار دهید.
+    */
+
     /* لیست موضوعات: فرمت { title: 'عنوان', file: 'homework.html' } */
     const TOPICS = [
-      { title: 'تکالیف — خودآموز و آزمون‌ها', file: 'homework.html'},
-      // برای اضافه کردن موضوع جدید، یک خط مثل بالا اضافه کنید
-      // { title: 'موضوع جدید', file: 'topic-new.html' }
+      { title: 'تکالیف — خودآموز و آزمون‌ها', file: 'homework.html' },
+      { title: 'بی‌دقتی — تحلیل اشتباهات', file: 'careless-mistakes.html' }
     ];
 
     const topicsEl = document.getElementById('topics');
@@ -68,7 +76,6 @@
         const res = await fetch(topic.file);
         if(!res.ok) throw new Error('not found');
         const html = await res.text();
-        // ساده‌ترین روش: قرار دادن HTML بارگذاری‌شده در بلوک محتوا
         contentArea.innerHTML = html;
       }catch(err){
         contentArea.innerHTML = `<div class="hint">محتوای "${topic.title}" موجود نیست. فایل <code>${topic.file}</code> را در کنار این صفحه آپلود کنید.</div>`;
