@@ -70,7 +70,6 @@
         <div class="note">نکتهٔ عملی: وقتی علت رو پیدا کردی، یک اقدام مشخص بنویس؛ مثلاً «این هفته روزی ۲۰ تست زماندار می‌زنم» یا «برای دو جلسه مطالعه، محیط ساکت انتخاب می‌کنم» — اقدامِ مشخص، تغییرِ واقعی میاره ✅</div>
 
         <div class="cta">
-          <a class="btn" href="javascript:void(0)" onclick="shareNote()">ذخیرهٔ نکته برای تحلیل</a>
           <a class="btn ghost" href="counseling.html">بازگشت به فهرست مشاوره</a>
         </div>
 
@@ -78,17 +77,5 @@
     </article>
 
   </main>
-
-  <script>
-    function shareNote(){
-      const note = prompt('یک نکتهٔ عملی برای اصلاح بی‌دقتی بنویس و ذخیره کن (این ذخیره فقط در مرورگر شما خواهد بود):');
-      if(!note) return alert('نکته‌ای وارد نشد.');
-      // ذخیره در localStorage (فقط برای کاربر محلی)
-      const notes = JSON.parse(localStorage.getItem('careless_notes') || '[]');
-      notes.push({text: note, at: new Date().toISOString()});
-      localStorage.setItem('careless_notes', JSON.stringify(notes));
-      alert('نکته ذخیره شد ✅ — می‌توانید در مرورگر خود آن را مشاهده کنید.');
-    }
-  </script>
 </body>
 </html>
