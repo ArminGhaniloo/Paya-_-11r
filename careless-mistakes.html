@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>بی‌دقتی — تحلیلِ اشتباهات و راهِ اصلاح</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#041028;--card:#0f1724;--muted:rgba(255,255,255,0.92);--accent1:#7c4dff;--accent2:#ff6b35}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Vazirmatn','Noto Nastaliq Urdu',sans-serif;background:linear-gradient(180deg,#02101a,var(--bg));color:var(--muted);direction:rtl}
+    .wrap{max-width:980px;margin:28px auto;padding:20px}
+
+    header{display:flex;gap:14px;align-items:center}
+    .badge{width:68px;height:68px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:900;color:white;font-size:18px}
+    h1{margin:0;font-size:1.5rem}
+    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.78)}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));border-radius:12px;padding:18px;margin-top:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.6)}
+    .card h2{margin:0 0 8px 0}
+    .para{line-height:1.9;color:rgba(255,255,255,0.92);font-size:1rem}
+
+    ul.causes{margin:12px 0 0 0;padding-left:18px}
+    ul.causes li{margin:8px 0;line-height:1.7}
+
+    .note{margin-top:14px;padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(124,77,255,0.06),rgba(255,107,53,0.04));font-weight:600}
+
+    .cta{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;text-decoration:none;font-weight:700}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    footer{margin-top:18px;color:rgba(255,255,255,0.72);font-size:14px}
+
+    @media (max-width:720px){.wrap{padding:14px}.badge{width:52px;height:52px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="badge">💡</div>
+      <div>
+        <h1>بی‌دقتی — تحلیلِ اشتباهات و راهِ اصلاح</h1>
+        <p class="lead">متنی کاربردی برای تحلیل بی‌دقتی‌ها؛ بخوانید، تحلیل کنید و با راهکارهای ساده اصلاح کنید ✨</p>
+      </div>
+    </header>
+
+    <article class="card">
+      <h2>بی‌دقتی؟ 🤔</h2>
+      <div class="para">
+        <p>احتمالا امروز که بخواین آزمونتونو تحلیل کنین؛ خیلی با این مسئله مواجه میشین. من یه چیزی که همیشه در مورد تحلیل به بچه‌ها میگم، اینه که تحلیل آزمون مراسم «خاک تو سرم» نیست. که عه خاک‌توسرم این رو نزدم. وای اون رو بلد بودم نتونستم حل کنم.</p>
+
+        <p>هدف اینه شما «علت‌یابی» کنین که چرا نتونستین یه سوالو بزنین. و بعد که علت رو یافتی به این فکر کنی که «چطور» میشه درستش کرد.</p>
+
+        <p>با این رویکرد، اول از همه، بنظر من بی‌دقتی، علت نهایی نیست بلکه خودش «نشونه» از یه چیز دیگست. برای همین مهمه تو تحلیل به «بی‌دقتی» قانع نشیم و بگردیم دنبال اینکه بی‌دقتی چی بهمون میگه.</p>
+
+        <p>چندتا از علت‌های شایع‌ترش که من به ذهنم میرسه ایناست:</p>
+
+        <ul class="causes">
+          <li>🧪 <strong>تست و تمرین کم</strong>: بنظر من بالای ۸۰ درصد علت بی‌دقتی از اینجا میاد. تست بیشتر بزنی، خود به خود دقت هم میاد بالا.</li>
+          <li>🔊 <strong>شرایط محیطی</strong>: مثل سر و صدای آزمون یا طولانی شدن بازه مطالعه خونه.</li>
+          <li>⏱️ <strong>عجله</strong>: این مورد تقریبا هیچ فایده‌ای نه سر آزمون نه خونه نداره؛ نه تنها سریع‌تر نیست بلکه کندترتون میکنه.</li>
+          <li>🔁 <strong>مرور کم</strong>: وقتی اطلاعات تو ذهنتون تازه نیست، خودآگاه یا ناخودآگاه توجهتون به جزئیات کم میشه.</li>
+          <li>📚 <strong>مطالعه سطحی و پراکنده</strong>: عمق نداشتن باعث میشه جزئیات فرار کنن.</li>
+          <li>🕒 <strong>نزدن تست زماندار</strong>: ضعف مدیریت آزمون — اینم تقریبا مثل اولیه‌ست، با این تفاوت که نمودش تو دانش‌آموزای قوی‌تر بیشتره.</li>
+        </ul>
+
+        <p class="para">- تو چه علت دیگه‌ای به ذهنت میرسه؟ همونو با ادبیات خودت بنویس توی تحلیلت. عمده مشکلاتت دقیقا همینجا مشخص میشن.</p>
+
+        <div class="note">نکتهٔ عملی: وقتی علت رو پیدا کردی، یک اقدام مشخص بنویس؛ مثلاً «این هفته روزی ۲۰ تست زماندار می‌زنم» یا «برای دو جلسه مطالعه، محیط ساکت انتخاب می‌کنم» — اقدامِ مشخص، تغییرِ واقعی میاره ✅</div>
+
+        <div class="cta">
+          <a class="btn" href="javascript:void(0)" onclick="shareNote()">ذخیرهٔ نکته برای تحلیل</a>
+          <a class="btn ghost" href="counseling.html">بازگشت به فهرست مشاوره</a>
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <script>
+    function shareNote(){
+      const note = prompt('یک نکتهٔ عملی برای اصلاح بی‌دقتی بنویس و ذخیره کن (این ذخیره فقط در مرورگر شما خواهد بود):');
+      if(!note) return alert('نکته‌ای وارد نشد.');
+      // ذخیره در localStorage (فقط برای کاربر محلی)
+      const notes = JSON.parse(localStorage.getItem('careless_notes') || '[]');
+      notes.push({text: note, at: new Date().toISOString()});
+      localStorage.setItem('careless_notes', JSON.stringify(notes));
+      alert('نکته ذخیره شد ✅ — می‌توانید در مرورگر خود آن را مشاهده کنید.');
+    }
+  </script>
+</body>
+</html>
